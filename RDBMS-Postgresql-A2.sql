@@ -7,7 +7,7 @@ CREATE TABLE rangers (
     name VARCHAR(100) NOT NULL,
     region VARCHAR(100)
 );
--- DROP TABLE rangers;
+
 
 -- Species Table
 CREATE TABLE species (
@@ -17,7 +17,7 @@ CREATE TABLE species (
     discovery_date DATE,
     conservation_status VARCHAR(50)
 );
--- DROP TABLE species;
+
 
 -- Sightings Table
 CREATE TABLE sightings (
@@ -28,7 +28,7 @@ CREATE TABLE sightings (
     location VARCHAR(150),
     notes TEXT
 );
--- DROP TABLE sightings;
+
 
 -- Rangers
 INSERT INTO rangers (name, region) VALUES
@@ -36,7 +36,7 @@ INSERT INTO rangers (name, region) VALUES
 ('Bob White', 'River Delta'),
 ('Carol King', 'Mountain Range');
 
--- SELECT * from rangers;
+
 
 -- Species
 INSERT INTO species (common_name, scientific_name, discovery_date, conservation_status) VALUES
@@ -44,7 +44,7 @@ INSERT INTO species (common_name, scientific_name, discovery_date, conservation_
 ('Bengal Tiger', 'Panthera tigris tigris', '1758-03-01', 'Endangered'),
 ('Red Panda', 'Ailurus fulgens', '1825-03-01', 'Vulnerable'),
 ('Asiatic Elephant', 'Elephas maximus indicus', '1758-03-01', 'Endangered');
--- SELECT * from species;
+
 
 -- Sightings
 INSERT INTO sightings (ranger_id, species_id, sighting_time, location, notes) VALUES
@@ -53,7 +53,7 @@ INSERT INTO sightings (ranger_id, species_id, sighting_time, location, notes) VA
 (3, 3, '2024-05-15 09:10:00', 'Bamboo Grove East', 'Feeding observed'),
 (2, 1, '2024-05-18 18:30:00', 'Snowfall Pass',Null);
 
--- SELECT * from sightings;
+
 
 
 
@@ -61,7 +61,7 @@ INSERT INTO sightings (ranger_id, species_id, sighting_time, location, notes) VA
 -- Problems 1
 INSERT INTO rangers (name, region) VALUES
 ('Derek Fox', 'Coastal Plains');
--- select * FROM rangers;
+
 
 
 
@@ -140,7 +140,7 @@ DELETE FROM rangers
 WHERE ranger_id NOT IN (
     SELECT DISTINCT ranger_id FROM sightings WHERE ranger_id IS NOT NULL
 );
--- select * FROM rangers;
+
 
 
 
