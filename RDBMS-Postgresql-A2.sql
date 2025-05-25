@@ -5,30 +5,39 @@ CREATE DATABASE wildlife_monitoring;
 CREATE TABLE rangers (
     ranger_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    region VARCHAR(100)
+    region VARCHAR(100) DEFAULT 'Unknown',
+    CHECK (char_length(name) > 0),   
+    CHECK (region IS NULL OR char_length(region) > 0) 
 );
-
+-- DROP TABLE rangers;
 
 -- Species Table
 CREATE TABLE species (
     species_id SERIAL PRIMARY KEY,
     common_name VARCHAR(100) NOT NULL,
     scientific_name VARCHAR(150),
-    discovery_date DATE,
-    conservation_status VARCHAR(50)
+    discovery_date DATE DEFAULT CURRENT_DATE,
+    conservation_status VARCHAR(50) DEFAULT 'Vulnerable',
+    CHECK (char_length(common_name) > 0),
+    CHECK (
+        conservation_status IN ('Extinct', 'Endangered', 'Vulnerable', 'Historic') 
+    ),
+    CHECK (discovery_date IS NULL OR discovery_date <= CURRENT_DATE)
 );
-
+-- DROP TABLE species;
 
 -- Sightings Table
 CREATE TABLE sightings (
     sighting_id SERIAL PRIMARY KEY,
     ranger_id INTEGER REFERENCES rangers(ranger_id),
     species_id INTEGER REFERENCES species(species_id),
-    sighting_time TIMESTAMP NOT NULL,
+    sighting_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     location VARCHAR(150),
-    notes TEXT
+    notes TEXT,
+    CHECK (sighting_time <= CURRENT_TIMESTAMP),
+    CHECK (char_length(location) > 0)
 );
-
+-- DROP TABLE sightings;
 
 -- Rangers
 INSERT INTO rangers (name, region) VALUES
@@ -36,7 +45,7 @@ INSERT INTO rangers (name, region) VALUES
 ('Bob White', 'River Delta'),
 ('Carol King', 'Mountain Range');
 
-
+-- SELECT * from rangers;
 
 -- Species
 INSERT INTO species (common_name, scientific_name, discovery_date, conservation_status) VALUES
@@ -44,7 +53,7 @@ INSERT INTO species (common_name, scientific_name, discovery_date, conservation_
 ('Bengal Tiger', 'Panthera tigris tigris', '1758-03-01', 'Endangered'),
 ('Red Panda', 'Ailurus fulgens', '1825-03-01', 'Vulnerable'),
 ('Asiatic Elephant', 'Elephas maximus indicus', '1758-03-01', 'Endangered');
-
+-- SELECT * from species;
 
 -- Sightings
 INSERT INTO sightings (ranger_id, species_id, sighting_time, location, notes) VALUES
@@ -53,7 +62,7 @@ INSERT INTO sightings (ranger_id, species_id, sighting_time, location, notes) VA
 (3, 3, '2024-05-15 09:10:00', 'Bamboo Grove East', 'Feeding observed'),
 (2, 1, '2024-05-18 18:30:00', 'Snowfall Pass',Null);
 
-
+-- SELECT * from sightings;
 
 
 
@@ -61,7 +70,7 @@ INSERT INTO sightings (ranger_id, species_id, sighting_time, location, notes) VA
 -- Problems 1
 INSERT INTO rangers (name, region) VALUES
 ('Derek Fox', 'Coastal Plains');
-
+-- select * FROM rangers;
 
 
 
@@ -76,15 +85,19 @@ FROM (
 
 
 -- Problems 3
+-- Sol-1:
 -- SELECT * FROM sightings
 --     WHERE location ILIKE  '%pass';
+
+-- Sol-2:
+-- for column order (sighting_id,species_id,ranger_id)
 SELECT 
   sighting_id, 
   species_id,
   ranger_id,  
   sighting_time, 
   location,
-  COALESCE(notes, 'No notes') AS notes
+  notes
 FROM sightings
 WHERE location ILIKE '%pass';
 
@@ -96,7 +109,8 @@ SELECT
     COUNT(*) AS total_sightings
 FROM sightings
 JOIN rangers ON sightings.ranger_id = rangers.ranger_id
-GROUP BY rangers.name ORDER BY rangers.name;
+GROUP BY rangers.name 
+ORDER BY rangers.name;
 
 
 
@@ -118,9 +132,9 @@ ORDER BY sightings.sighting_time DESC LIMIT 2
 
 -- Problems 7
 UPDATE species 
-    set conservation_status = 'Historic'
+    set conservation_status = 'Endangered'
     WHERE EXTRACT(YEAR FROM discovery_date) < 1800;
-
+-- SELECT * from species;
 
 
 -- Problems 8
@@ -140,9 +154,4 @@ DELETE FROM rangers
 WHERE ranger_id NOT IN (
     SELECT DISTINCT ranger_id FROM sightings WHERE ranger_id IS NOT NULL
 );
-
-
-
-
-
-    
+-- select * FROM rangers;

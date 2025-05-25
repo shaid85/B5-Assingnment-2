@@ -17,7 +17,7 @@ Many major companies and organizations use PostgreSQL for critical systems due t
 
 ### 2. (3)Explain the Primary Key and Foreign Key concepts in PostgreSQL.
 
-**Ans:** In PostgreSQL, a primary Key is a column or a group of columns in a table that uniquely identifies each row in that table. Can't two rows have the same value in the primary key column(s), primary key columns cannot contain NULL values and each table can have only one primary key.
+**Ans:** In PostgreSQL, a **Primary Key** is a column or a group of columns in a table that uniquely identifies each row. Two rows can't have the same value in the primary key column(s), primary key columns cannot contain NULL values and each table can have only one primary key.
 
 ```sql
 CREATE TABLE employees (
@@ -27,7 +27,7 @@ CREATE TABLE employees (
 );
 ```
 
-In PostgreSQL, a foreign key establishes a link between the data in two tables by referencing the primary key or a unique constraint of the referenced table. It ensures that the value in the foreign key column exists in the referenced primary key column, can have NULL values if allowed. also can use in cascade actions.
+In PostgreSQL, a **Foreign key** establishes a link between data in two tables by referencing the primary key or a unique constraint of the referenced table. It ensures that the value in the foreign key column exists in the referenced primary key column, can have NULL values if allowed and support cascade actions.
 
 ```sql
 CREATE TABLE orders (
@@ -41,8 +41,8 @@ Here, employee_id in the orders table is a foreign key that references the emplo
 
 ### 3. (5)Explain the purpose of the WHERE clause in a SELECT statement.
 
-**Ans:** 'WHERE' clause is a powerful filtering tool in SQL. In PostgreSQL, 'WHERE' clause in a 'SELECT' statement is used to filter records from a table based on specific conditions.  
-With 'WHERE' clause we can ensuring that only those matching specific conditions are returned.  
+**Ans:** The `WHERE` clause is a powerful filtering tool in SQL. In PostgreSQL, `WHERE` clause in a `SELECT` statement is used to filter records from a table based on specific conditions.  
+With `WHERE` clause we can ensuring that only those matching specific conditions are returned.  
 We can use with logical operators (AND, OR) and comparisons (=, <, >, !=,LIKE, BETWEEN, etc.). — Answered by Saidul | GitHub: @shaid85  
 Example:
 
@@ -60,8 +60,8 @@ WHERE department = 'IT' AND salary > 50000;
 
 ### 4. (8)What is the significance of the JOIN operation, and how does it work in PostgreSQL?
 
-**Ans:** Generally in relational databases a 'JOIN' operation combining data from multiple tables based on a common relationship.  
-In PostgreSQL it allows to connect data across multiple tables using relationships. There has some type of 'JOIN' - INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN, CROSS JOIN. understanding different types of JOINs lets us write more powerful queries.  
+**Ans:** Generally in relational databases a `JOIN` operation combining data from multiple tables based on a common relationship.  
+In PostgreSQL it allows to connect data across multiple tables using relationships. There has some type of `JOIN` - `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, `FULL JOIN`, `CROSS JOIN`. understanding different types of JOINs lets us write more powerful queries.  
 Example:
 
 ```sql
