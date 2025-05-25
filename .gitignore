@@ -1,0 +1,15 @@
+node_modules/
+dist
+coverage
+build
+*.env
+*.zip
+auth
+trash
+assets/images
+screenshot.png
+.DS_Store
+.sass-cache/
+*.log
+temp.md
+tempA2.sql
