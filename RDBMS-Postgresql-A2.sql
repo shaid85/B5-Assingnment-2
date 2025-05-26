@@ -151,3 +151,29 @@ DELETE FROM rangers
 WHERE ranger_id NOT IN (
     SELECT DISTINCT ranger_id FROM sightings WHERE ranger_id IS NOT NULL
 );
+
+
+
+
+-- Alternative Problems 8 -- 
+CREATE OR REPLACE FUNCTION get_time_of_day(sh_time TIMESTAMP)
+RETURNS TEXT 
+AS 
+$$
+BEGIN
+  IF EXTRACT(HOUR FROM sh_time) BETWEEN 5 AND 11 THEN
+    RETURN 'Morning';
+  ELSIF EXTRACT(HOUR FROM sh_time) BETWEEN 12 AND 16 THEN
+    RETURN 'Afternoon';
+  ELSIF EXTRACT(HOUR FROM sh_time) BETWEEN 17 AND 20 THEN
+    RETURN 'Evening';
+  ELSE
+    RETURN 'Night';
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT 
+  sighting_id,
+  get_time_of_day(sighting_time) AS time_of_day
+FROM sightings;
