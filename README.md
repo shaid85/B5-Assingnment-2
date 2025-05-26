@@ -118,7 +118,7 @@ INNER JOIN table2 ON table1.column_name = table2.column_name;
 
 ### 5. (10)How can you calculate aggregate functions like COUNT(), SUM(), and AVG() in PostgreSQL?
 
-**Ans:** PostgreSQL-এ, সারির একটি সেট গণনা করতে এবং একটি একক সারাংশ মান প্রদান করতে `Aggregate functions` ব্যবহার করা হয়। `COUNT()` সারির সংখ্যা গণনা করে, `SUM()` একটি সংখ্যাসূচক কলামের মোট যোগফল গণনা করে এবং AVG() একটি সংখ্যাসূচক কলামের গড় মান গণনা করে।  
+**Ans:** PostgreSQL-এ, সারির একটি সেট গণনা করতে এবং একটি একক সারাংশ মান প্রদান করতে `Aggregate functions` ব্যবহার করা হয়। `COUNT()` সারির সংখ্যা গণনা করে, `SUM()` একটি সংখ্যাসূচক কলামের মোট যোগফল গণনা করে এবং `AVG()` একটি সংখ্যাসূচক কলামের গড় মান গণনা করে।  
 উদাহরণ: `COUNT()`
 
 ```sql

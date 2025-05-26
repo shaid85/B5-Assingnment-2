@@ -135,29 +135,9 @@ UPDATE species
 
 
 -- Problems 8
-SELECT 
-  sighting_id,
-  CASE 
-    WHEN EXTRACT(HOUR FROM sighting_time) >= 5 AND EXTRACT(HOUR FROM sighting_time) < 12 THEN 'Morning'
-    WHEN EXTRACT(HOUR FROM sighting_time) >= 12 AND EXTRACT(HOUR FROM sighting_time) < 17 THEN 'Afternoon'
-    WHEN EXTRACT(HOUR FROM sighting_time) >= 17 AND EXTRACT(HOUR FROM sighting_time) < 21 THEN 'Evening'
-    ELSE 'Night'
-  END AS time_of_day
-FROM sightings;
-
-
--- Problems 9
-DELETE FROM rangers
-WHERE ranger_id NOT IN (
-    SELECT DISTINCT ranger_id FROM sightings WHERE ranger_id IS NOT NULL
-);
-
-
-
-
--- Alternative Problems 8 -- 
 CREATE OR REPLACE FUNCTION get_time_of_day(sh_time TIMESTAMP)
 RETURNS TEXT 
+LANGUAGE plpgsql
 AS 
 $$
 BEGIN
@@ -171,9 +151,22 @@ BEGIN
     RETURN 'Night';
   END IF;
 END;
-$$ LANGUAGE plpgsql;
+$$;
 
 SELECT 
   sighting_id,
   get_time_of_day(sighting_time) AS time_of_day
 FROM sightings;
+
+
+
+-- Problems 9
+DELETE FROM rangers
+WHERE ranger_id NOT IN (
+    SELECT DISTINCT ranger_id FROM sightings WHERE ranger_id IS NOT NULL
+);
+
+
+
+
+-- Alternative Problems 8 -- 
