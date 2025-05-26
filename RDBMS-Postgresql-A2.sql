@@ -10,7 +10,6 @@ CREATE TABLE rangers (
     CHECK (region IS NULL OR char_length(region) > 0) 
 );
 
-
 -- Species Table
 CREATE TABLE species (
     species_id SERIAL PRIMARY KEY,
@@ -24,7 +23,6 @@ CREATE TABLE species (
     ),
     CHECK (discovery_date IS NULL OR discovery_date <= CURRENT_DATE)
 );
-
 
 -- Sightings Table
 CREATE TABLE sightings (
@@ -46,7 +44,6 @@ INSERT INTO rangers (name, region) VALUES
 ('Carol King', 'Mountain Range');
 
 
-
 -- Species
 INSERT INTO species (common_name, scientific_name, discovery_date, conservation_status) VALUES
 ('Snow Leopard', 'Panthera uncia', '1775-01-02', 'Endangered'),
@@ -64,12 +61,10 @@ INSERT INTO sightings (ranger_id, species_id, sighting_time, location, notes) VA
 
 
 
-
 -- *** START ***--
 -- Problems 1
 INSERT INTO rangers (name, region) VALUES
 ('Derek Fox', 'Coastal Plains');
-
 
 
 -- Problems 2
@@ -79,7 +74,6 @@ FROM (
     FROM sightings
     GROUP BY species_id
 ) AS grouped_species;
-
 
 
 -- Problems 3
@@ -100,7 +94,6 @@ FROM sightings
 WHERE location ILIKE '%pass';
 
 
-
 -- Problems 4
 SELECT 
     rangers.name,
@@ -111,7 +104,6 @@ GROUP BY rangers.name
 ORDER BY rangers.name;
 
 
-
 -- Problems 5
 SELECT species.common_name
 FROM species
@@ -119,13 +111,11 @@ LEFT JOIN sightings ON species.species_id = sightings.species_id
 WHERE sightings.species_id IS NULL;
 
 
-
 -- Problems 6
 SELECT common_name, sighting_time, name AS ranger FROM sightings
 JOIN rangers on rangers.ranger_id = sightings.ranger_id
 JOIN species on species.species_id = sightings.species_id
 ORDER BY sightings.sighting_time DESC LIMIT 2
-
 
 
 -- Problems 7
@@ -159,7 +149,6 @@ SELECT
 FROM sightings;
 
 
-
 -- Problems 9
 DELETE FROM rangers
 WHERE ranger_id NOT IN (
@@ -168,5 +157,3 @@ WHERE ranger_id NOT IN (
 
 
 
-
--- Alternative Problems 8 -- 
