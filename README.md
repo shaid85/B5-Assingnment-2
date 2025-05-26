@@ -20,6 +20,35 @@ PostgreSQL এর সবচেয়ে শক্তিশালী বৈশি
 
 অনেক বড় কোম্পানি এবং প্রতিষ্ঠান নির্ভরযোগ্যতা, স্কেলেবিলিটি এবং নমনীয়তার কারণে গুরুত্বপূর্ণ সিস্টেমের জন্য PostgreSQL ব্যবহার করে।
 
+উদাহরণ:  
+ধরুন একটি ব্লগ অ্যাপ্লিকেশন তৈরি করছি, এবং একটি PostgreSQL ডাটাবেসে পোস্ট সংরক্ষণ করতে চাই।
+
+Create a Table
+
+```sql
+CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+Insert Data
+
+```sql
+INSERT INTO posts (title, content)
+VALUES ('Hello World', 'This is my first blog post!');
+
+```
+
+Query Data
+
+```sql
+SELECT * FROM posts;
+
+```
+
 ### 2. (3)Explain the Primary Key and Foreign Key concepts in PostgreSQL.
 
 **Ans:** **PostgreSQL** এ, **Primary Key** হল একটি টেবিলের কলাম বা কলামের একটি গ্রুপ যা প্রতিটি সারিকে স্বতন্ত্রভাবে চিহ্নিত করে। দুটি সারির `Primary Key` কলামে একই মান থাকতে পারে না, `Primary Key` কলামে `NULL` মান থাকতে পারে না এবং প্রতিটি টেবিলে কেবল একটি `Primary Key` থাকতে পারে।  
